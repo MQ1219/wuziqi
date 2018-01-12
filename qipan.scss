@@ -1,0 +1,144 @@
+$width:600px;
+$row:15;
+$margin:5px;
+@mixin center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate3d(-50%,-50%,0);
+}
+@mixin perc{
+  width: 100%;
+  height: 100%;
+}
+@mixin auto{
+  margin-left:auto;
+  margin-right:auto;
+}
+@mixin fill{
+  position: relative;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+@mixin circle{
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+
+}
+*{
+  margin:0;
+  padding:0;
+}
+html,body{
+  @include perc;
+}
+@keyframes fly {
+  0%{
+    transform: translate3d(0,-1000px,0);
+  }
+  100%{
+    transform: translate3d(0,0,0);
+  }
+}
+@keyframes dd {
+  from{
+    transform: translate3d(0,-1000px,0);
+  }
+  to{
+    transform: translate3d(-50%,-50%,0);
+  }
+}
+body{
+  width:100%;
+  height: 100%;
+  background-image: url("bj.jfif");
+  background-size: cover;
+}
+.qipan{
+  width: $width;
+  height:$width;
+  background: rgba(0,0,0,.1);
+  @include auto;
+  position:relative;
+  .dian{
+    position:absolute;
+    width: $width / $row / 4;
+    height: $width / $row / 4;
+    @include circle;
+    background: #000;
+    transform: translate3d(-50%,-50%,0);
+    animation: dd 1s ease forwards;
+    z-index: 10;
+  }
+  .dian:nth-of-type(1){
+    top:$width / $row *3.5;
+    left:$width / $row *3.5;
+    transition-delay: 500ms;
+  }
+  .dian:nth-of-type(2){
+    top:$width / $row *3.5;
+    left:$width / $row *11.5;
+    transition-delay: 500ms;
+  }
+  .dian:nth-of-type(3){
+    top:$width / $row *7.5;
+    left:$width / $row *7.5;
+    transition-delay: 1s;
+  }
+  .dian:nth-of-type(4){
+    top:$width / $row *11.5;
+    left:$width / $row *3.5;
+    transition-delay: 1.5s;
+  }
+  .dian:nth-of-type(5){
+    top:$width / $row *11.5;
+    left:$width / $row *11.5;
+    transition-delay: 1.5s;
+  }
+  .qizi{
+    width:$width/ $row -(2 * $margin);
+    height: $width/ $row -(2 * $margin);
+    @include circle;
+    margin:$margin;
+    float:left;
+    position:relative;
+    z-index: 20;
+  }
+  .qizi.hei{
+    background: #000;
+  }
+  .qizi.bai{
+    background: #fff;
+  }
+  i{
+    width:$width - $width/$row;
+    height: 1px;
+    position:absolute;
+    background: #000;
+    transform: translate3d(0,-1000px,0);
+  }
+  b{
+    height:$width - $width/$row;
+    width: 1px;
+    position:absolute;
+    background: #000;
+    transform: translate3d(0px,-1000px,0);
+  }
+  @for $i from 1 through $row {
+    i:nth-of-type(#{$i}){
+      left:$width/$row/2;
+      top:(2* $i - 1)*$width/$row/2;
+      animation: fly .5s ease 100ms* $i forwards;
+    }
+  }
+  @for $i from 1 through $row {
+    b:nth-of-type(#{$i}){
+      top:$width/$row/2;
+      left:(2* $i - 1)*$width/$row/2;
+      animation: fly .5s ease 100ms* $i forwards;
+    }
+  }
+}
